@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: malancha-hrms
+    env: docker
+    plan: free
+    buildCommand: ""
+    startCommand: ""
