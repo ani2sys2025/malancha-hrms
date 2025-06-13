@@ -1,15 +1,19 @@
-FROM php:7.4-apache
+
+FROM php:8.1-apache
 
 # Install required PHP extensions
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Enable Apache mod_rewrite
+# Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Copy application files
+# Copy files
 COPY . /var/www/html/
 
-# Set working directory
-WORKDIR /var/www/html/
+# Permissions
+RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 80
+# Set working directory
+WORKDIR /var/www/html
+
+CMD ["apache2-foreground"]
